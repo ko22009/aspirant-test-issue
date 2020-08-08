@@ -3,5 +3,5 @@ vendor
 config/app.*.yaml
 .phpunit.result.cache
 .php_cs.cache
-.env.local
-.env.*.local
+.idea
+.env
