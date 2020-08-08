@@ -5,12 +5,21 @@
 {% block content %}
     <div class="container">
         <h1 class="mt-5 mb-4">{{ trailers | length }} iTunes Movie trailers</h1>
-        <table class="table table-bordered">
-            {% for trailer in trailers %}
-                <tr>
-                    <td>{{ trailer.title }}</td>
-                </tr>
-            {% endfor %}
-        </table>
+
+        <div class="row">
+        {% for trailer in trailers %}
+        <div class="card m-2" style="width: 18rem;">
+            <img class="card-img-top" src="{{ trailer.image }}" alt="{{ trailer.title }}">
+            <div class="card-body">
+                <h5 class="card-title">{{ trailer.title }}</h5>
+                <p class="card-text">{{ trailer.description[:50] ~ '...' }}</p>
+                <a href="{{ trailer.link }}" class="btn btn-primary">More info</a>
+            </div>
+            <div class="card-footer text-muted">
+                {{ trailer.pubDate | date('m/d/Y') }}
+            </div>
+        </div>
+        {% endfor %}
+        </div>
     </div>
 {% endblock %}

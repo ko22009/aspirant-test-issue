@@ -5,6 +5,8 @@
 Но данная логика не включена (исправил). Потом заметил, что в файле app.yaml можно включить отладку.
 
 #### Запуска сервера
+docker-compose up  
+Скопировать env.example и переименовать в .env  
 Войти в container, запустить php сервер:  
 docker exec -it aspirant-test-issue_app_1 /bin/sh  
 php -S 0.0.0.0:8080 -t public
