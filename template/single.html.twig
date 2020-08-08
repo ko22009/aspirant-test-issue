@@ -1,0 +1,23 @@
+{% extends 'main.html.twig' %}
+
+{% block title %} SSS {% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="media">
+            <div class="text-center mr-2">
+                <img src="{{ item.image }}" alt="Generic placeholder image">
+                <div>{{ item.pubDate | date('m/d/Y') }}</div>
+                <a href="/" role="button" class="btn btn-secondary">Go to back</a>
+            </div>
+
+            <div class="media-body">
+                <h1 class="mt-0">{{ item.title }}</h1>
+                <p>
+                    {{ item.description }}
+                </p>
+                <a href="{{ item.link }}" class="btn btn-primary float-right">More info</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

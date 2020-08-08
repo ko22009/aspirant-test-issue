@@ -8,6 +8,7 @@ use App\Entity\Movie;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
+use Exception;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Slim\Exception\HttpBadRequestException;
@@ -74,6 +75,35 @@ class HomeController
     }
 
     /**
+     * @param ServerRequestInterface $request
+     * @param ResponseInterface      $response
+     *
+     * @return ResponseInterface
+     *
+     * @throws HttpBadRequestException
+     */
+    public function view(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
+    {
+        try {
+            $id = $request->getAttribute('id');
+            if(is_int($id)) throw new Exception('id is not number');
+
+            $item = $this->fetch($id);
+            if(!$item) throw new Exception('Not found');
+
+            $data = $this->twig->render('single.html.twig', [
+                'item' => $item,
+            ]);
+        } catch (Exception $e) {
+            throw new HttpBadRequestException($request, $e->getMessage(), $e);
+        }
+
+        $response->getBody()->write($data);
+
+        return $response;
+    }
+
+    /**
      * @return Collection
      */
     protected function fetchData(): Collection
@@ -82,5 +112,14 @@ class HomeController
             ->findAll();
 
         return new ArrayCollection($data);
+    }
+
+    /**
+     * @return object | null
+     */
+    protected function fetch($id)
+    {
+        return $data = $this->em->getRepository(Movie::class)
+            ->find($id);
     }
 }

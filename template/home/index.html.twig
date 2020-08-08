@@ -4,14 +4,18 @@
 
 {% block content %}
     <div class="container">
-        <h1 class="mt-5 mb-4">{{ trailers | length }} iTunes Movie trailers</h1>
+
+        <div>{{ controllerName }}</div>
+        <div>{{ methodName }}</div>
+
+        <h1 class="mb-4">{{ trailers | length }} iTunes Movie trailers</h1>
 
         <div class="row">
         {% for trailer in trailers %}
         <div class="card m-2" style="width: 18rem;">
-            <img class="card-img-top" src="{{ trailer.image }}" alt="{{ trailer.title }}">
+            <a href="/{{ trailer.id }}"><img class="card-img-top" src="{{ trailer.image }}" alt="{{ trailer.title }}"></a>
             <div class="card-body">
-                <h5 class="card-title">{{ trailer.title }}</h5>
+                <h5 class="card-title"><a href="/{{ trailer.id }}">{{ trailer.title }}</a></h5>
                 <p class="card-text">{{ trailer.description[:50] ~ '...' }}</p>
                 <a href="{{ trailer.link }}" class="btn btn-primary">More info</a>
             </div>

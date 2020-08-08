@@ -3,4 +3,8 @@ main:
   path: ~
   controller: App\Controller\HomeController
   action: index
-
+view:
+  method: 'get'
+  path: '{id}'
+  controller: App\Controller\HomeController
+  action: view
