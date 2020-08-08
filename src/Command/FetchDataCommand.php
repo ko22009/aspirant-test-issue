@@ -139,10 +139,14 @@ class FetchDataCommand extends Command
         $line = 0;
 
         foreach ($items as $item) {
+            $encodedContent = (string) $item->children('http://purl.org/rss/1.0/modules/content/')->encoded;
+            preg_match('/(?:img src=")([^"]+)/', $encodedContent, $matches);
+
             $trailer = $this->getMovie((string) $item->title)
                 ->setTitle((string) $item->title)
                 ->setDescription((string) $item->description)
                 ->setLink((string) $item->link)
+                ->setImage($matches ? $matches[1] : null)
                 ->setPubDate($this->parseDate((string) $item->pubDate));
 
             $this->doctrine->persist($trailer);
