@@ -72,8 +72,8 @@ class FetchDataCommand extends Command
     {
         $this
             ->setDescription('Fetch data from iTunes Movie Trailers')
-            ->addArgument('source', InputArgument::OPTIONAL, 'Overwrite source')
-        ;
+            ->addOption('source', 's', InputArgument::OPTIONAL, 'Overwrite source')
+            ->addOption('maxCount', 'c', InputArgument::OPTIONAL, 'Overwrite max count');
     }
 
     /**
@@ -86,8 +86,17 @@ class FetchDataCommand extends Command
     {
         $this->logger->info(sprintf('Start %s at %s', __CLASS__, (string) date_create()->format(DATE_ATOM)));
         $source = self::SOURCE;
-        if ($input->getArgument('source')) {
-            $source = $input->getArgument('source');
+        if ($input->getOption('source')) {
+            $source = $input->getOption('source');
+        }
+
+        $maxCount = 10;
+        if ($input->getOption('maxCount')) {
+            $maxCount = intval($input->getOption('maxCount'));
+        }
+
+        if ($maxCount < 10) {
+            throw new RuntimeException('Max count must be a number and not less 10');
         }
 
         if (!is_string($source)) {
@@ -105,7 +114,7 @@ class FetchDataCommand extends Command
             throw new RuntimeException(sprintf('Response status is %d, expected %d', $status, 200));
         }
         $data = $response->getBody()->getContents();
-        $this->processXml($data);
+        $this->processXml($data, $maxCount);
 
         $this->logger->info(sprintf('End %s at %s', __CLASS__, (string) date_create()->format(DATE_ATOM)));
 
@@ -114,27 +123,31 @@ class FetchDataCommand extends Command
 
     /**
      * @param string $data
+     * @param int $data
      *
      * @throws \Exception
      */
-    protected function processXml(string $data): void
+    protected function processXml(string $data, int $maxCount): void
     {
         $xml = (new \SimpleXMLElement($data))->children();
-//        $namespace = $xml->getNamespaces(true)['content'];
-//        dd((string) $xml->channel->item[0]->children($namespace)->encoded);
 
         if (!property_exists($xml, 'channel')) {
             throw new RuntimeException('Could not find \'channel\' element in feed');
         }
-        foreach ($xml->channel->item as $item) {
+
+        $items = $xml->channel->item;
+        $line = 0;
+
+        foreach ($items as $item) {
             $trailer = $this->getMovie((string) $item->title)
                 ->setTitle((string) $item->title)
                 ->setDescription((string) $item->description)
                 ->setLink((string) $item->link)
-                ->setPubDate($this->parseDate((string) $item->pubDate))
-            ;
+                ->setPubDate($this->parseDate((string) $item->pubDate));
 
             $this->doctrine->persist($trailer);
+            $line++;
+            if($line == $maxCount) break;
         }
 
         $this->doctrine->flush();
