@@ -43,11 +43,6 @@ class FetchDataCommand extends Command
     private $logger;
 
     /**
-     * @var string
-     */
-    private $source;
-
-    /**
      * @var EntityManagerInterface
      */
     private $doctrine;

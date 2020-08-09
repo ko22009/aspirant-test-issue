@@ -115,9 +115,10 @@ class HomeController
     }
 
     /**
+     * @param int $id
      * @return object | null
      */
-    protected function fetch($id)
+    protected function fetch(int $id)
     {
         return $data = $this->em->getRepository(Movie::class)
             ->find($id);
