@@ -64,7 +64,7 @@ Server
 Плюс host.docker.internal на mac'ах не сработает.
 
 #### Отладка для консоли
-php -dxdebug.remote_autostart php bin/console fetch:trailers  
+php -dxdebug.remote_autostart bin/console fetch:trailers  
 
 #### Запуск тестов из PhpStorm
 ![Expose daemon](img/tls.png)  
