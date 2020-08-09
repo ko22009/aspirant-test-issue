@@ -51,11 +51,11 @@ php bin/console fetch:trailers -c 10
 
 #### Настройка для Xdebug
 Port (при изменении порта нужно перезагрузить прослушивание порта)  
-![port](port.png?raw=true "Phpstorm")   
+![port](img/port.png)   
 Server  
-![Debugging](phpstorm.png?raw=true "Phpstorm")
+![Debugging](img/phpstorm.png)
 Для chrome браузера установить https://chrome.google.com/webstore/detail/xdebug-helper/eadndfjplgieldjbigjakmdgkmoaaaoc  
-![Xdebug extension](xdebug.png?raw=true "Chrome")  
+![Xdebug extension](img/xdebug.png)  
 В параметрах расширения IDE key выставить PhpStorm  
 Потом поставить точку останова и проверить
 
@@ -65,3 +65,11 @@ Server
 
 #### Отладка для консоли
 php -dxdebug.remote_autostart php bin/console fetch:trailers  
+
+#### Запуск тестов из PhpStorm
+![Expose daemon](img/tls.png)  
+![Docker](img/docker.png)  
+![Php](img/php server.png)  
+![Php](img/test.png)  
+Запустить можем тесты с отладкой и без:  
+![Php](img/run test.png)  
