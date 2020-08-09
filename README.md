@@ -14,13 +14,10 @@ docker-compose up
 docker exec -it aspirant-test-issue_app_1 /bin/sh  
 php -S 0.0.0.0:8080 -t public
 
-Можно встроить это при запуске docker container, но было лень.
+Далее все команды выполняются внутри контейнера.
+docker exec -it aspirant-test-issue_app_1 /bin/sh  
 
 #### Проблема с БД
-Была не доступна в другом контейнере.  
-Объединил в одну сеть и обращаюсь теперь к БД
-через название контейнера, указанного в env файле.
-
 Создание структуры таблиц по схеме:  
 php bin/console orm:schema-tool:create
 
