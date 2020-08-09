@@ -73,3 +73,7 @@ php -dxdebug.remote_autostart php bin/console fetch:trailers
 ![Php](img/test.png)  
 Запустить можем тесты с отладкой и без:  
 ![Php](img/run test.png)  
+
+#### Проверка качество кода  
+Через PHP CS Fixer: Code | Inspect code  
+./vendor/bin/psalm
