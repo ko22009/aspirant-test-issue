@@ -14,7 +14,7 @@ class ConfigTest extends TestCase
         $this->assertInstanceOf(Config::class, $config);
     }
 
-    public function test__costructError(): void
+    public function test__constructError(): void
     {
         $this->expectException(RuntimeException::class);
         new Config('not-exists', 'test', 'not-exists-too');
