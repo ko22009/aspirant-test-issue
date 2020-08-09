@@ -123,7 +123,7 @@ class FetchDataCommand extends Command
 
     /**
      * @param string $data
-     * @param int $data
+     * @param int $maxCount
      *
      * @throws \Exception
      */
