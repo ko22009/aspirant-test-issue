@@ -7,18 +7,16 @@ services:
       context: .
     volumes:
       - .:/var/www/app
+      - ./docker/php.ini:/usr/local/etc/php/conf.d/php.ini
     environment:
       COMPOSER_MEMORY_LIMIT: -1
       COMPOSER_ALLOW_SUPERUSER: 1
       APP_ENV: 'dev'
     ports:
       - 8080:8080
-    networks:
-      - local
 
   database:
     image: mysql:5.7
-    container_name: ${HOST}
     ports:
       - 3306:3306
     environment:
@@ -26,9 +24,5 @@ services:
       MYSQL_DATABASE: slim_project
       MYSQL_USER: webmaster
       MYSQL_PASSWORD: webmaster
-    networks:
-      - local
-
-
-networks:
-  local:
+    volumes:
+      - ./../data:/var/lib/mysql
