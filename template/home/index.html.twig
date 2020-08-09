@@ -12,12 +12,12 @@
 
         <div class="row">
         {% for trailer in trailers %}
-        <div class="card m-2" style="width: 18rem;">
+        <div class="card m-2" style="width: 135px;">
             <a href="/{{ trailer.id }}"><img class="card-img-top" src="{{ trailer.image }}" alt="{{ trailer.title }}"></a>
-            <div class="card-body">
-                <h5 class="card-title"><a href="/{{ trailer.id }}">{{ trailer.title }}</a></h5>
+            <div class="card-body p-2" style="display: flex;flex-direction: column;">
+                <h6 class="card-title"><a href="/{{ trailer.id }}">{{ trailer.title[:15] ~ '...'  }}</a></h6>
                 <p class="card-text">{{ trailer.description[:50] ~ '...' }}</p>
-                <a href="{{ trailer.link }}" class="btn btn-primary">More info</a>
+                <a href="{{ trailer.link }}" class="btn btn-primary" style="margin-top: auto;">More info</a>
             </div>
             <div class="card-footer text-muted">
                 {{ trailer.pubDate | date('m/d/Y') }}
