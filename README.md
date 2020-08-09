@@ -62,3 +62,6 @@ Server
 Желательно настройки xdebug в отдельный файл переносить и mounted как volume,
 чтобы не пришлось пересобирать контейнер по каждому изменению в Dockerfile.  
 Плюс host.docker.internal на mac'ах не сработает.
+
+#### Отладка для консоли
+php -dxdebug.remote_autostart php bin/console fetch:trailers  
