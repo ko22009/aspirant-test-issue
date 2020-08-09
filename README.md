@@ -53,8 +53,15 @@ source(s), maxCount(c)
 php bin/console fetch:trailers -c 10
 
 #### Настройка для Xdebug
+Port (при изменении порта нужно перезагрузить прослушивание порта)  
+![port](port.png?raw=true "Phpstorm")   
+Server  
 ![Debugging](phpstorm.png?raw=true "Phpstorm")
 Для chrome браузера установить https://chrome.google.com/webstore/detail/xdebug-helper/eadndfjplgieldjbigjakmdgkmoaaaoc  
 ![Xdebug extension](xdebug.png?raw=true "Chrome")  
 В параметрах расширения IDE key выставить PhpStorm  
 Потом поставить точку останова и проверить
+
+Желательно настройки xdebug в отдельный файл переносить и mounted как volume,
+чтобы не пришлось пересобирать контейнер по каждому изменению в Dockerfile.  
+Плюс host.docker.internal на mac'ах не сработает.
