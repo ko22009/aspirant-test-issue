@@ -50,3 +50,5 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 
 COPY --chown=www-data:www-data . /var/www/app
 WORKDIR /var/www/app
+
+CMD php -S 0.0.0.0:8080 -t public

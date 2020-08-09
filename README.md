@@ -5,6 +5,9 @@
 Но данная логика не включена (исправил). Потом заметил, что в файле app.yaml можно включить отладку.
 
 #### Запуска сервера
+Была добавлена команда на запуск сервера, необходимо пересобрать контейнер:  
+docker-compose build app
+
 docker-compose up  
 Скопировать env.example и переименовать в .env  
 Войти в container, запустить php сервер:  
@@ -48,3 +51,10 @@ MIDDLE-уровень
 Изменил аргументы на опциональные параметры.  
 source(s), maxCount(c)  
 php bin/console fetch:trailers -c 10
+
+#### Настройка для Xdebug
+![Debugging](phpstorm.png?raw=true "Phpstorm")
+Для chrome браузера установить https://chrome.google.com/webstore/detail/xdebug-helper/eadndfjplgieldjbigjakmdgkmoaaaoc  
+![Xdebug extension](xdebug.png?raw=true "Chrome")  
+В параметрах расширения IDE key выставить PhpStorm  
+Потом поставить точку останова и проверить
