@@ -88,7 +88,7 @@ class HomeController
             $id = $request->getAttribute('id');
             if(is_int($id)) throw new Exception('id is not number');
 
-            $item = $this->fetch($id);
+            $item = $this->fetch((int)$id);
             if(!$item) throw new Exception('Not found');
 
             $data = $this->twig->render('single.html.twig', [
